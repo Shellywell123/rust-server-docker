@@ -1,7 +1,8 @@
 volumes:
   lgsm:
 services:
-  lgsm:
+  rust:
+    container_name: rust
     # Limiting server resources
     cpu_count: 2
     mem_limit: 8gb
@@ -17,6 +18,7 @@ services:
       - -exc
       - |
         # MAIN
+        chown linuxgsm:linuxgsm -R .
         apt-get update
         apt-get install -y dos2unix rsync sudo vim nano libgdiplus python3.8-venv lib32z1
         #grant access to video card for direct rendering (not used by rust ds)
@@ -60,13 +62,13 @@ services:
         su - linuxgsm -c "LINUX_GSM_VERSION=\"${LINUX_GSM_VERSION:-v20.4.1}\" /utils/custom-rust-server.sh"
     volumes:
       - lgsm:/home/linuxgsm
-      - ./mod-configs/:/home/linuxgsm/serverfiles/oxide/config/:rw
-      - ./custom-mods/:/custom-plugins/:ro
-      - ./custom-maps/:/custom-maps/:rw
-      - ./harmony-mods:/home/linuxgsm/serverfiles/HarmonyMods
-      - ./harmony-config:/home/linuxgsm/serverfiles/HarmonyConfig
-      - ./utils/:/utils/:ro
-      - ./rust-environment.sh:/rust-environment.sh:ro
+      - ./rust-storage/mod-configs/:/home/linuxgsm/serverfiles/oxide/config/:rw
+      - ./rust-storage/custom-mods/:/custom-plugins/:ro
+      - ./rust-storagecustom-maps/:/custom-maps/:rw
+      - ./rust-storage/harmony-mods:/home/linuxgsm/serverfiles/HarmonyMods
+      - ./rust-storage/harmony-config:/home/linuxgsm/serverfiles/HarmonyConfig
+      - ./rust-storage/utils/:/utils/:ro
+      - ./rust-storage/rust-environment.sh:/rust-environment.sh:ro
     ports:
       - ${RUST_RCON_INTERFACE:-127.0.0.1}:28016:28016
       - 0.0.0.0:28015:28015/udp
