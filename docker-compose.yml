@@ -64,7 +64,7 @@ services:
       - lgsm:/home/linuxgsm
       - ./rust-storage/mod-configs/:/home/linuxgsm/serverfiles/oxide/config/:rw
       - ./rust-storage/custom-mods/:/custom-plugins/:ro
-      - ./rust-storagecustom-maps/:/custom-maps/:rw
+      - ./rust-storage/custom-maps/:/custom-maps/:rw
       - ./rust-storage/harmony-mods:/home/linuxgsm/serverfiles/HarmonyMods
       - ./rust-storage/harmony-config:/home/linuxgsm/serverfiles/HarmonyConfig
       - ./rust-storage/utils/:/utils/:ro
